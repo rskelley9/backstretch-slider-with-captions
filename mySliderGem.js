@@ -12,6 +12,6 @@ function getHeaders(){
     headers.push(id)
   })
 
-  var reOrder = headers.push(headers.shift())
-  return reOrder
+  headers.push(headers.shift())
+  return headers
 };
