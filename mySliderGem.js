@@ -1,12 +1,27 @@
 
-var backStretch = $(".backstretch").parent()
+// ----- Notes -----
+
+// use classes 'caps' and 'heads' to identify headers and paragraphs
+// that are used as slides.
+
+// getDuration() method retrieves slider fade duration from BackStretch object
+// and then the fade duration of the captions are set equal to that
+
+// if backstretch div has class 'clickable' then it will pause on mouseenter
+// and will be able to be clicked to cycle through photos.
+
+// ------------------
+
+backStretchDiv = $(".backstretch").parent()
+
+backStretchInstance = backStretchDiv.data('backstretch')
 
 //hide all slider text
 
 function hideSlides(){
- $('.caps').hide()
- $('.headers').hide();
-}
+  $('.caps').hide()
+  $('.headers').hide();
+};
 
 //get the ids of the headers and put them in an array with a specific order
 
@@ -14,7 +29,7 @@ function getHeaderIds(){
 
   var headers = []
 
-  $("h4[id^='head-']").each(function(){
+  $(":header[id^='head-']").each(function(){
     var id = $(this).attr("id")
 
 
@@ -25,6 +40,11 @@ function getHeaderIds(){
   return headers
 };
 
+function getDuration(){
+
+  return backStretchInstance.options.duration
+
+}
 
 // get the ids for each caption
 
@@ -45,28 +65,36 @@ function getCapIds(){
 
 $(document).ready(function() {
 
-  $("#slider-bs").backstretch(["<%= asset_path 'block.jpeg' %>", "<%= asset_path 'concrete-repairs.jpg' %>", "<%= asset_path 'barren-construction.jpg' %>" ], {duration: 7000, fade: "slow", lazyload: true});
+  headers = getHeaderIds();
 
-  var texts = [
-  "two", "three", "one"
-  ]
+  captions = getCapIds();
+
+  // run slider
 
   $(window).on("backstretch.before", function (e, instance) {
-    $('.caps').hide()
-    $('.headers').hide();
-    $("#"+texts[instance.index]+"").fadeIn("slow");
-    $("#head-"+texts[instance.index]+"").fadeIn("slow");
+
+    hideSlides();
+
+    $("#"+captions[instance.index]+"").fadeIn(getDuration);
+    $("#"+headers[instance.index]+"").fadeIn(getDuration);
   });
 
-  $('#polaroid-slide').mouseenter(function(){
-    $('#slider-bs').backstretch("pause")
-  }).click(function() {
-   $('#slider-bs').backstretch("next")
+// add click/cycle with css class functionality
+// todo expand animation
+  if (backStretchDiv.hasClass("clickable"))
+  {
+    backStretchDiv.mouseenter(function(){
+      backStretchDiv.backstretch("pause")
+    }).click(function() {
+     backStretchDiv.backstretch("next")
 
- }).mouseleave(function() {
-   $('#slider-bs').backstretch("resume")
+   }).mouseleave(function() {
+     backStretchDiv.backstretch("resume")
 
- });
+   });
+ }
+
+
 });
 
 
