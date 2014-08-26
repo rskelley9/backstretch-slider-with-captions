@@ -1,14 +1,18 @@
 
 // ----- Notes -----
 
-// use classes 'caps' and 'heads' to identify headers and paragraphs
-// that are used as slides.
+// use classes 'caps' and 'headers' to identify headers and paragraphs
+// that are used as slides
+
+// identify each unique caption with id #cap-number
+// and each unique header with id #head-number
+// e.g caption for the first image slider would have id 'cap-1'
 
 // getDuration() method retrieves slider fade duration from BackStretch object
 // and then the fade duration of the captions are set equal to that
 
 // if backstretch div has class 'clickable' then it will pause on mouseenter
-// and will be able to be clicked to cycle through photos.
+// and will be able to be clicked to cycle through photos
 
 // ------------------
 
@@ -29,7 +33,7 @@ function getHeaderIds(){
 
   var headers = []
 
-  $(":header[id^='head-']").each(function(){
+  $(":header[id^='header-']").each(function(){
     var id = $(this).attr("id")
 
 
