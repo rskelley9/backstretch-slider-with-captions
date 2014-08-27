@@ -16,9 +16,6 @@
 
 // ------------------
 
-backStretchDiv = $(".backstretch").parent()
-
-backStretchInstance = backStretchDiv.data('backstretch')
 
 //hide all slider text
 
@@ -44,12 +41,6 @@ function getHeaderIds(){
   return headers
 };
 
-function getDuration(){
-
-  return backStretchInstance.options.duration
-
-}
-
 // get the ids for each caption
 
 function getCapIds(){
@@ -69,6 +60,12 @@ function getCapIds(){
 
 $(document).ready(function() {
 
+  backStretchDiv = $(".backstretch").parent()
+
+  backStretchInstance = backStretchDiv.data('backstretch')
+
+  backStretchDuration = backStretchInstance.options.duration
+
   headers = getHeaderIds();
 
   captions = getCapIds();
@@ -79,24 +76,24 @@ $(document).ready(function() {
 
     hideSlides();
 
-    $("#"+captions[instance.index]+"").fadeIn(getDuration);
-    $("#"+headers[instance.index]+"").fadeIn(getDuration);
+    $("#"+captions[instance.index]+"").fadeIn(backStretchDuration);
+    $("#"+headers[instance.index]+"").fadeIn(backStretchDuration);
   });
 
 // add click/cycle with css class functionality
 // todo expand animation
-  if (backStretchDiv.hasClass("clickable"))
-  {
-    backStretchDiv.mouseenter(function(){
-      backStretchDiv.backstretch("pause")
-    }).click(function() {
-     backStretchDiv.backstretch("next")
+if (backStretchDiv.hasClass("clickable"))
+{
+  backStretchDiv.mouseenter(function(){
+    backStretchDiv.backstretch("pause")
+  }).click(function() {
+   backStretchDiv.backstretch("next")
 
-   }).mouseleave(function() {
-     backStretchDiv.backstretch("resume")
+ }).mouseleave(function() {
+   backStretchDiv.backstretch("resume")
 
-   });
- }
+ });
+}
 
 
 });
