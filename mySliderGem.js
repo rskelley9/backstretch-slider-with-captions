@@ -76,8 +76,8 @@ $(document).ready(function() {
 
     hideSlides();
 
-    $("#"+captions[instance.index]+"").fadeIn(backStretchDuration);
-    $("#"+headers[instance.index]+"").fadeIn(backStretchDuration);
+    $("#"+captions[instance.index]+"").fadeIn(backStretchDuration / 4);
+    $("#"+headers[instance.index]+"").fadeIn(backStretchDuration / 4);
   });
 
 // add click/cycle with css class functionality
